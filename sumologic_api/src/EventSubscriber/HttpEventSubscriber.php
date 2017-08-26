@@ -6,17 +6,13 @@
  */
 
 namespace Drupal\sumologic_api\EventSubscriber;
-
+use GuzzleHttp\Cookie\SetCookie as CookieParser;
 use Drupal\http_client_manager\HttpClientInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Guzzle\Common\Event;
+use GuzzleHttp\Cookie\SessionCookieJar;
 use Guzzle\Plugin\Cookie\CookiePlugin;
 
-use Guzzle\Plugin\Cookie\CookieJar\ArrayCookieJar;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 
 /**
@@ -29,37 +25,37 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class HttpEventSubscriber implements EventSubscriberInterface {
 
-  /**
-   * {@inheritdoc}
-   */
-  static function getSubscribedEvents() {
-      $events['request.before_send'] = array('onRequestBeforeSend', -1000);
-      return $events;
-  }
-
-
-  public function onRequestBeforeSend(Event $event) {
-    $request = $event['request'];
-
-    //if (!($request instanceof Request)) {
-      //return;
-    //}
-
-    $api = reset($request->getHeader(HttpClientInterface::HEADER_API)->toArray());
-    //$command = reset($request->getHeader(HttpClientInterface::HEADER_COMMAND)->toArray());
-    if ($api != 'Sumologic Client') {
-      return;
+    /**
+     * {@inheritdoc}
+     */
+    static function getSubscribedEvents() {
+        $events['request.before_send'] = array('onRequestBeforeSend', -1000);
+        return $events;
     }
 
-    $cookiePlugin = new CookiePlugin(new ArrayCookieJar());
-    $request->addSubscriber($cookiePlugin);
-      $request->setAuth("sudXIMQtPyQeeI","QgS9ZapOrWO8wS2MDUY2SgZi8f8JfNrRRLOuoKOXYdbpt8pTO1bITySGQZRzZXDG");
-      drupal_set_message($request);
-      $request->getEventDispatcher()->addListener('request.error', function(Event $event) {
-          $event->stopPropagation();
-          if ($event['response']->getStatusCode() == 404) {
 
-          }
-      });
-  }
+    /**
+     * @param Event $event
+     */
+    public function onRequestBeforeSend(Event $event) {
+
+        $request = $event['request'];
+
+        $api = reset($request->getHeader(HttpClientInterface::HEADER_API)->toArray());
+
+        if ($api != 'Sumologic Client') {
+            return;
+        }
+        $cookiePlugin = new CookiePlugin(new SessionCookieJar('SESSION_STORAGE', true));
+        $request->addSubscriber($cookiePlugin);
+        //TODO: meh mih moh muh auth based on user key
+        $request->setAuth("sudXIMQtPyQeeI","QgS9ZapOrWO8wS2MDUY2SgZi8f8JfNrRRLOuoKOXYdbpt8pTO1bITySGQZRzZXDG");
+        $request->getEventDispatcher()->addListener('request.error', function(Event $event) {
+            $event->stopPropagation();
+            if ($event['response']->getStatusCode() == 404) {
+
+            }
+        });
+    }
+
 }
