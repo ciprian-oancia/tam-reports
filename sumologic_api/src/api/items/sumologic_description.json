@@ -1,0 +1,87 @@
+{
+  "operations": {
+    "addjob": {
+      "httpMethod": "POST",
+      "uri": "search/jobs",
+      "summary": "Find jobs to the Sumologic query",
+      "exceptions": "false",
+      "debug": true,
+      "cookies": true,
+      "parameters": {
+        "query": {
+          "location": "json",
+          "description": "Query",
+          "required": true,
+          "type": "string"
+        },
+        "from": {
+          "location": "json",
+          "description": "From",
+          "required": true,
+          "type": "string"
+        },
+        "to": {
+          "location": "json",
+          "description": "To",
+          "required": true,
+          "type": "string"
+        },
+        "timeZone": {
+          "location": "json",
+          "description": "Timezone",
+          "required": true,
+          "type": "string"
+        }
+      }
+    },
+    "jobstatus": {
+      "httpMethod": "GET",
+      "uri": "search/jobs/{jobId}",
+      "summary": "Job Status",
+      "exceptions": "false",
+      "debug": true,
+      "cookies": true,
+      "parameters": {
+        "jobId": {
+          "location": "uri",
+          "description": "Job Status",
+          "required": true,
+          "type": "string"
+        }
+      }
+    },
+    "viewmessages": {
+      "httpMethod": "GET",
+      "uri": "search/jobs/{jobId}/messages?offset=0&limit=1",
+      "summary": "View Messages",
+      "exceptions": "false",
+      "debug": true,
+      "cookies": true,
+      "parameters": {
+        "jobId": {
+          "location": "query",
+          "description": "View Messages",
+          "required": true,
+          "type": "string"
+        }
+      }
+    },
+    "viewrecords": {
+      "httpMethod": "GET",
+      "uri": "search/jobs/{jobId}/records?offset=0&limit=1",
+      "summary": "View Records",
+      "exceptions": "false",
+      "debug": true,
+      "cookies": true,
+      "parameters": {
+        "jobId": {
+          "location": "query",
+          "description": "View Records",
+          "required": true,
+          "type": "string"
+        }
+      }
+    }
+  },
+  "models": {}
+}

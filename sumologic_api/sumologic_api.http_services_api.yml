@@ -1,0 +1,4 @@
+sumologic_api:
+  title: "Sumologic API"
+  api_path: "src/api/sumologic_api.json"
+  base_url: "https://api.sumologic.com/api/v1/"

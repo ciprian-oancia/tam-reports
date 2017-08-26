@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: add_job
+label: 'add_job'
+service_api: sumologic_api
+command_name: add_job
+parameters:
+ jobId: ''

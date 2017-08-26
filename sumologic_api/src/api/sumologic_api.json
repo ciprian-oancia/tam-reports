@@ -1,0 +1,11 @@
+{
+  "name": "Sumologic Client",
+  "apiVersion": "2017-08-29",
+  "description": "Sumologic API Client",
+  "includes" : [
+    "items/sumologic_description.json"
+  ],
+  "exceptions": "false",
+  "debug": true,
+  "cookies": true
+}

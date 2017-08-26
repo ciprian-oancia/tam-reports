@@ -1,0 +1,8 @@
+services:
+  sumologic_api.http_client:
+    parent: http_client_manager.client_base
+    arguments: ['sumologic_api']
+  sumologic_api_subscriber:
+    class: 'Drupal\sumologic_api\EventSubscriber\HttpEventSubscriber'
+    tags:
+      - { name: 'event_subscriber' }

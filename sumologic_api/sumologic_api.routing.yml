@@ -1,0 +1,16 @@
+
+sumologic_api.add_job:
+  path: 'add-job'
+  defaults:
+    _controller: '\Drupal\sumologic_api\Controller\SumologicController::addJob'
+    _title: 'addJob'
+  requirements:
+    _permission: 'access content'
+
+sumologic_api.view_results:
+  path: 'view-results/{jobId}'
+  defaults:
+    _controller: '\Drupal\sumologic_api\Controller\SumologicController::viewResults'
+    _title: 'View Results'
+  requirements:
+    _permission: 'access content'

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: view_results
+label: 'View Results'
+service_api: sumologic_api
+command_name: view_results
+parameters:
+  jobId: ''
