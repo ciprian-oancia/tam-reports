@@ -46,8 +46,9 @@ class HttpEventSubscriber implements EventSubscriberInterface {
         if ($api != 'Sumologic Client') {
             return;
         }
-        $cookiePlugin = new CookiePlugin(new SessionCookieJar('SESSION_STORAGE', true));
-        $request->addSubscriber($cookiePlugin);
+
+        $cookie = new SessionCookieJar('SESSION_STORAGE', true);
+       //$request->addSubscriber($cookie);
         //TODO: meh mih moh muh auth based on user key
         $request->setAuth("sudXIMQtPyQeeI","QgS9ZapOrWO8wS2MDUY2SgZi8f8JfNrRRLOuoKOXYdbpt8pTO1bITySGQZRzZXDG");
         $request->getEventDispatcher()->addListener('request.error', function(Event $event) {

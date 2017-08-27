@@ -4,5 +4,5 @@ sumologic_api:
   base_url: "https://api.sumologic.com/api/v1/"
   config:
    cookies: "$cookieJar"
-   exceptions: "false"
-   debug: "true"
+   exceptions: false
+   debug: true
